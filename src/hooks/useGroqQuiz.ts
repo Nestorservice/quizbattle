@@ -29,6 +29,7 @@ export function useGroqQuiz(): UseGroqQuizResult {
         setLoading(false);
         return quiz.questions.slice(0, config.questionCount);
       } catch (err) {
+        console.error('Quiz generation failed:', err);
         setIsFallback(true);
         const shuffled = [...FALLBACK_QUESTIONS].sort(() => Math.random() - 0.5);
         setLoading(false);

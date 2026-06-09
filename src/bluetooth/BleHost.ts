@@ -1,5 +1,4 @@
 import BleManager from './BleManager';
-import { BleMessage } from '../types/ble';
 import { Question } from '../types/quiz';
 import { TeamSummary } from '../types/team';
 

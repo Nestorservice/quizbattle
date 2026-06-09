@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Typography } from '../../constants/theme';
+import { Typography } from '../../constants/theme';
 import { avatarColor } from '../../utils/avatarColor';
 
 interface AvatarProps {

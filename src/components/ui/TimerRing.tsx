@@ -7,7 +7,6 @@ import Animated, {
   withTiming,
   Easing,
   interpolateColor,
-  useDerivedValue,
 } from 'react-native-reanimated';
 import { Colors } from '../../constants/theme';
 

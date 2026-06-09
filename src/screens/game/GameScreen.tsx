@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
@@ -34,7 +33,7 @@ type AnswerState = 'default' | 'selected' | 'correct' | 'wrong' | 'revealed';
 export const GameScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
   const { questions, currentIndex, config, submitAnswer, nextQuestion, markQuestionStart } = useGameStore();
-  const { teams, scores, eliminated, updateScore, incrementError, eliminateTeam, checkAutoElimination } = useTeamsStore();
+  const { teams, scores, eliminated, updateScore, incrementError } = useTeamsStore();
   const haptics = useHaptics();
 
   const [answerStates, setAnswerStates] = useState<AnswerState[]>(['default', 'default', 'default', 'default']);
@@ -50,7 +49,7 @@ export const GameScreen: React.FC = () => {
 
   const handleExpire = useCallback(() => {
     if (!revealed) revealAnswer(-1);
-  }, [revealed]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [revealed, question]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { start: startTimer, stop: stopTimer } = useTimer({
     duration: timerDuration,
@@ -78,12 +77,27 @@ export const GameScreen: React.FC = () => {
     stopTimer();
     setRevealed(true);
 
+    const isCorrect = pickedIndex === question.correct_index;
+
+    // Mise à jour de l'état visuel
     const newStates: AnswerState[] = question.options.map((_, i) => {
       if (i === question.correct_index) return 'correct';
       if (i === pickedIndex && pickedIndex !== question.correct_index) return 'wrong';
       return 'default';
     });
     setAnswerStates(newStates);
+
+    // Calcul du score (pour l'équipe active, ici simplifiée au host pour l'instant)
+    if (isCorrect) {
+      const elapsed = Date.now() - useGameStore.getState().questionStartTime;
+      const points = calculateScore(true, elapsed, timerDuration);
+      // Supposons que l'équipe 0 est celle du host
+      if (teams.length > 0) {
+        updateScore(teams[0].id, points);
+      }
+    } else if (pickedIndex !== -1 && teams.length > 0) {
+      incrementError(teams[0].id);
+    }
 
     explanationY.value = withSpring(0, { damping: 14, stiffness: 180 });
     explanationOpacity.value = withTiming(1, { duration: 250 });
@@ -101,6 +115,8 @@ export const GameScreen: React.FC = () => {
     if (revealed || selectedIndex !== null) return;
 
     setSelectedIndex(index);
+    submitAnswer(index);
+
     const newStates: AnswerState[] = ['default', 'default', 'default', 'default'];
     newStates[index] = 'selected';
     setAnswerStates(newStates);

@@ -20,7 +20,6 @@ import { GameStackParamList } from '../../navigation/types';
 import { useTeamsStore } from '../../stores/teamsStore';
 import { Team } from '../../types/team';
 import { Button } from '../../components/ui/Button';
-import { Card } from '../../components/ui/Card';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { Colors, Typography, Spacing, Radius } from '../../constants/theme';
 import { CreateTeamSheet } from '../../components/team/CreateTeamSheet';

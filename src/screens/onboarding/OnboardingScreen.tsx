@@ -14,7 +14,6 @@ import {
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withSpring,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';

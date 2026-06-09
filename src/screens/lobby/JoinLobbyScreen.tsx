@@ -21,7 +21,7 @@ type Nav = StackNavigationProp<GameStackParamList, 'JoinLobby'>;
 export const JoinLobbyScreen: React.FC = () => {
   const navigation = useNavigation<Nav>();
   const [scanning, setScanning] = useState(true);
-  const [devices, setDevices] = useState<BleDevice[]>([]);
+  const [devices] = useState<BleDevice[]>([]);
 
   useEffect(() => {
     // BLE scan sera intégré Phase 8
@@ -29,7 +29,7 @@ export const JoinLobbyScreen: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const connectToDevice = (device: BleDevice) => {
+  const connectToDevice = (_device: BleDevice) => {
     navigation.navigate('WaitingRoom');
   };
 

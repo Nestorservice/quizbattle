@@ -34,10 +34,8 @@ export const GeneratingScreen: React.FC = () => {
   const { profile } = useProfileStore();
   const { generate, isFallback } = useGroqQuiz();
   const [msgIndex, setMsgIndex] = useState(0);
-  const [done, setDone] = useState(false);
 
   const scale = useSharedValue(1);
-  const opacity = useSharedValue(1);
 
   useEffect(() => {
     scale.value = withRepeat(

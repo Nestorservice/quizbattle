@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { useSharedValue, withTiming, Easing, runOnJS } from 'react-native-reanimated';
+import { useSharedValue, withTiming, Easing } from 'react-native-reanimated';
 
 interface UseTimerOptions {
   duration: number; // seconds

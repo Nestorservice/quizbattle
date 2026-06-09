@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import BleManager from './BleManager';
 import BleHost from './BleHost';
 import BleClient from './BleClient';
-import { BleDevice, BleMessage, BleMode } from '../types/ble';
+import { BleDevice, BleMessage } from '../types/ble';
 import { TeamSummary } from '../types/team';
 
 interface UseBluetoothHostResult {
